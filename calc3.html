@@ -8,20 +8,31 @@
 </head>
 <body>
     <script>
+        const checkSquare = (str) => {
+            let num;
+            if(str[str.length - 1] == "^"){
+                num = +str.slice(0, str.length - 1)
+                num *= num
+                return `${num}`
+            }else{
+                return str
+            }
+        }
+
         let input = prompt("Enter a height and width");
-        let inputArr = input.split(" ")
+        let inputArr = input.split(/\s|;/)
         let finalArr = [];
         let arrArr = []
         for(let i = 0; i < inputArr.length; i++){
             let temp = inputArr[i]
             if(inputArr[i] == '-'){
-                temp = +inputArr[i + 1] * -1;
+                temp = +checkSquare(inputArr[i + 1]) * -1;
                 i++;
             }
-            if(!isNaN(+temp)){
-                finalArr.push(+temp)
+            if(!isNaN(+checkSquare(temp))){
+                finalArr.push(+checkSquare(temp))
             }
-            if(inputArr[i] == ";"){
+            if(inputArr[i] == ";" || inputArr[i] == ""){
                 arrArr.push(finalArr)
                 finalArr = []
             }
